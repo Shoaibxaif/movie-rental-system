@@ -1,0 +1,31 @@
+<%- include('header') %>
+
+<body class="bg-gray-900 text-white flex flex-col min-h-screen">
+  <%- include('navbar') %>
+  <div class="container mx-auto py-8 flex-grow">
+    <h1 class="text-4xl font-bold mb-8 text-center">Edit Movie</h1>
+    <form action="/movies/edit/<%= movie.MovieID %>" method="POST" class="max-w-md mx-auto">
+      <div class="mb-4">
+        <label for="Title" class="block text-sm font-medium text-gray-300">Title</label>
+        <input type="text" id="Title" name="Title" value="<%= movie.Title %>" class="form-input mt-1 block w-full bg-gray-700 border border-gray-600 text-white">
+      </div>
+      <div class="mb-4">
+        <label for="Genre" class="block text-sm font-medium text-gray-300">Genre</label>
+        <input type="text" id="Genre" name="Genre" value="<%= movie.Genre %>" class="form-input mt-1 block w-full bg-gray-700 border border-gray-600 text-white">
+      </div>
+      <div class="mb-4">
+        <label for="ReleaseDate" class="block text-sm font-medium text-gray-300">Release Date</label>
+        <input type="date" id="ReleaseDate" name="ReleaseDate" value="<%= moment(movie.ReleaseDate).format('YYYY-MM-DD') %>" class="form-input mt-1 block w-full bg-gray-700 border border-gray-600 text-white">
+      </div>
+      <div class="mb-4">
+        <label for="Rating" class="block text-sm font-medium text-gray-300">Rating</label>
+        <input type="number" step="0.1" id="Rating" name="Rating" value="<%= movie.Rating %>" class="form-input mt-1 block w-full bg-gray-700 border border-gray-600 text-white">
+      </div>
+      <div class="text-center">
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Update Movie</button>
+      </div>
+    </form>
+  </div>
+  <%- include('footer') %>
+</body>
+</html>
