@@ -2,13 +2,13 @@
 
 <body class="bg-gray-900 text-white flex flex-col min-h-screen">
     <%- include('navbar') %>
-    <div class="container mx-auto py-4">
-        <h1 class="text-2xl font-bold text-center mb-4">Edit Rental</h1>
+    <div class="container mx-auto py-8 flex-grow">
+        <h1 class="text-4xl font-bold text-center mb-8">Edit Rental</h1>
 
-        <form action="/rentals/edit/<%= rental.RentalID %>" method="POST" class="max-w-lg mx-auto">
+        <form action="/rentals/edit/<%= rental.RentalID %>" method="POST" class="max-w-md mx-auto bg-gray-800 p-6 rounded-md">
             <div class="mb-4">
-                <label for="title" class="block text-sm font-medium ">Movie Title</label>
-                <select id="title" name="title" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                <label for="title" class="mb-1 block text-white ">Movie Title</label>
+                <select id="title" name="title" class="w-full px-3 py-2 bg-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     <% movies.forEach(movie => { %>
                         <option value="<%= movie.Title %>" <%= rental.Title === movie.Title ? 'selected' : '' %>><%= movie.Title %></option>
                     <% }); %>
@@ -16,8 +16,8 @@
             </div>
 
             <div class="mb-4">
-                <label for="name" class="block text-sm font-medium ">Customer Name</label>
-                <select id="name" name="name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                <label for="name" class="mb-1 block text-white ">Customer Name</label>
+                <select id="name" name="name" class="w-full px-3 py-2 bg-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     <% customers.forEach(customer => { %>
                         <option value="<%= customer.Name %>" <%= rental.Name === customer.Name ? 'selected' : '' %>><%= customer.Name %></option>
                     <% }); %>
@@ -25,18 +25,18 @@
             </div>
 
             <div class="mb-4">
-                <label for="rentalDate" class="block text-sm font-medium ">Rental Date</label>
-                <input type="date" id="rentalDate" name="rentalDate" value="<%= moment(rental.RentalDate).format('YYYY-MM-DD') %>" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                <label for="rentalDate" class="mb-1 block text-white ">Rental Date</label>
+                <input type="date" id="rentalDate" name="rentalDate" value="<%= moment(rental.RentalDate).format('YYYY-MM-DD') %>" class="w-full px-3 py-2 bg-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
             </div>
 
             <div class="mb-4">
-                <label for="returnDate" class="block text-sm font-medium ">Return Date</label>
-                <input type="date" id="returnDate" name="returnDate" value="<%= rental.ReturnDate ? moment(rental.ReturnDate).format('YYYY-MM-DD') : '' %>" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                <label for="returnDate" class="mb-1 block text-white ">Return Date</label>
+                <input type="date" id="returnDate" name="returnDate" value="<%= rental.ReturnDate ? moment(rental.ReturnDate).format('YYYY-MM-DD') : '' %>" class="w-full px-3 py-2 bg-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
             </div>
 
             <div class="mb-4">
-                <label for="duePayment" class="block text-sm font-medium ">Due Payment</label>
-                <input type="number" id="duePayment" name="duePayment" value="<%= rental.DuePayment %>" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                <label for="duePayment" class="mb-1 block text-white ">Due Payment</label>
+                <input type="number" id="duePayment" name="duePayment" value="<%= rental.DuePayment %>" class="w-full px-3 py-2 bg-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
             </div>
 
             <div class="mb-4">
@@ -47,7 +47,7 @@
             </div>
 
             <div class="mt-4">
-                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Update Rental</button>
+                <button type="submit" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded-md">Update Rental</button>
                 <a href="/rentals" class="ml-2 bg-gray-500 text-white px-4 py-2 rounded-md">Cancel</a>
             </div>
         </form>

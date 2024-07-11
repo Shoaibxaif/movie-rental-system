@@ -2,12 +2,12 @@
 
 <body class="bg-gray-900 text-white flex flex-col min-h-screen">
     <%- include('navbar') %>
-    <div class="container mx-auto py-4">
+    <div class="container mx-auto py-4 flex-grow">
         <h1 class="text-2xl font-bold text-center mb-4">Manage Rentals</h1>
         <div class="mt-4">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-2xl font-bold">Current Rentals</h2>
-                <a href="/rentals/add" class="bg-blue-500 text-white px-4 py-2 rounded-md">Add New Rental</a>
+                <a href="/rentals/add" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded-md">Add Rental</a>
             </div>
             
             <table class="min-w-full divide-y divide-gray-200">
@@ -34,8 +34,10 @@
                          
                             <td class="py-2 px-4 border-b border-gray-700 text-center">
                                 <a href="/rentals/edit/<%= rental.RentalID %>" class="bg-yellow-500 text-white px-4 py-1 rounded-md mr-2">Edit</a>
-                                <a href="/rentals/delete/<%= rental.RentalID %>" class="bg-red-500 text-white px-4 py-1 rounded-md">Delete</a>
-                              </td>
+                                <form action="/rentals/delete/<%= rental.RentalID %>" method="POST" class="inline">
+                                    <button type="submit" class="bg-red-500 text-white px-4 py-1 rounded-md">Delete</button>
+                                </form>
+                            </td>
                         </tr>
                     <% }); %>
                 </tbody>

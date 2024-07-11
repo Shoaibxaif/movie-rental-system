@@ -101,8 +101,7 @@ router.post("/edit/:id", (req, res) => {
                 console.error(err);
                 return res.status(500).json({ message: "Error updating rental" });
             }
-            console.log("Rental updated successfully");
-            res.redirect('/rentals'); // Redirect to rentals page after successful update
+            res.redirect('/rentals'); 
         }
     );
 });
