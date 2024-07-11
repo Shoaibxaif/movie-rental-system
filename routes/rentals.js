@@ -50,4 +50,75 @@ router.post("/add", (req, res) => {
     );
 });
 
+
+// GET route to render the edit form for a specific rental
+router.get("/edit/:id", (req, res) => {
+    const { id } = req.params;
+    
+    // Fetch rental details by RentalID
+    db.query("SELECT * FROM Rentals WHERE RentalID = ?", [id], (err, rentalResults) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ message: "Error fetching rental details" });
+        }
+        
+        if (rentalResults.length === 0) {
+            return res.status(404).json({ message: "Rental not found" });
+        }
+
+        // Fetch all movies
+        db.query("SELECT Title FROM Movies", (err, movies) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).json({ message: "Error fetching movies" });
+            }
+
+            // Fetch all customers
+            db.query("SELECT Name FROM Customers", (err, customers) => {
+                if (err) {
+                    console.error(err);
+                    return res.status(500).json({ message: "Error fetching customers" });
+                }
+
+                // Render the editRental.ejs template with data
+                res.render("editRental", { rental: rentalResults[0], movies: movies, customers: customers, moment: moment });
+            });
+        });
+    });
+});
+
+// POST route to update a specific rental
+router.post("/edit/:id", (req, res) => {
+    const { id } = req.params;
+    const { name, title, rentalDate, returnDate, duePayment, fullPayment } = req.body;
+    
+    // Perform update query on Rentals table using RentalID
+    db.query(
+        "UPDATE Rentals SET Title = ?, Name = ?, RentalDate = ?, ReturnDate = ?, DuePayment = ?, FullPayment = ? WHERE RentalID = ?",
+        [title, name, rentalDate, returnDate, duePayment, fullPayment === 'on', id],
+        (err, results) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).json({ message: "Error updating rental" });
+            }
+            console.log("Rental updated successfully");
+            res.redirect('/rentals'); // Redirect to rentals page after successful update
+        }
+    );
+});
+
+
+// POST route to delete a specific rental
+router.get("/delete/:id", (req, res) => {
+    const { id } = req.params;
+    db.query("DELETE FROM Rentals WHERE RentalID = ?", [id], (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ message: "Error deleting rental" });
+        }
+        return res.send('<script>alert("Rental deleted successfully"); window.location="/rentals";</script>');
+    });
+});
+
+
 module.exports = router;
