@@ -150,20 +150,20 @@ VALUES
 
 SELECT * FROM Customers;
 
-
 -- Create the Rentals table
 CREATE TABLE Rentals (
     RentalID CHAR(36) PRIMARY KEY,
+    MovieID CHAR(36),
+    CustomerID CHAR(36),
     Title VARCHAR(255),
     Name VARCHAR(255),
     RentalDate DATE NOT NULL,
     ReturnDate DATE,
     DuePayment DECIMAL(10, 2),
     FullPayment BOOLEAN,
+    FOREIGN KEY (MovieID) REFERENCES Movies(MovieID),
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
     FOREIGN KEY (Title) REFERENCES Movies(Title),
     FOREIGN KEY (Name) REFERENCES Customers(Name)
 );
 
--- Ensure indexes are created for the foreign key columns
-CREATE INDEX idx_title ON Movies (Title);
-CREATE INDEX idx_name ON Customers (Name);

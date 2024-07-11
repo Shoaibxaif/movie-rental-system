@@ -1,62 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Customers</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
-  </head>
-  <body class="bg-gray-900 text-white flex flex-col min-h-screen">
+<%- include('header') %>
+<body class="bg-gray-900 text-white flex flex-col min-h-screen">
   
-    <%- include('navbar') %>
+  <%- include('navbar') %>
 
-    <div class="container mx-auto py-8 flex-grow">
-      <h1 class="text-4xl font-bold mb-8 text-center">Customers</h1>
-      <div class="overflow-x-auto">
-        <table class="min-w-full bg-gray-800 border border-gray-700">
-          <thead>
-            <tr>
-              <th class="py-2 px-4 border-b border-gray-700">CustomerID</th>
-              <th class="py-2 px-4 border-b border-gray-700">Name</th>
-              <th class="py-2 px-4 border-b border-gray-700">Email</th>
-              <th class="py-2 px-4 border-b border-gray-700">PhoneNumber</th>
-              <th class="py-2 px-4 border-b border-gray-700">Address</th>
-              <th class="py-2 px-4 border-b border-gray-700">MembershipDate</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% customers.forEach(function(customer) { %>
-            <tr>
-              <td class="py-2 px-4 border-b border-gray-700 text-center">
-                <%= customer.CustomerID %>
-              </td>
-              <td class="py-2 px-4 border-b border-gray-700 text-center">
-                <%= customer.Name %>
-              </td>
-              <td class="py-2 px-4 border-b border-gray-700 text-center">
-                <%= customer.Email %>
-              </td>
-              <td class="py-2 px-4 border-b border-gray-700 text-center">
-                <%= customer.PhoneNumber %>
-              </td>
-              <td class="py-2 px-4 border-b border-gray-700 text-center">
-                <%= customer.Address %>
-              </td>
-              <td class="py-2 px-4 border-b border-gray-700 text-center">
-                <%= moment(customer.MembershipDate).format('ddd MMM DD YYYY') %>
-              </td>
-            </tr>
-            <% }); %>
-          </tbody>
-        </table>
+  <div class="container mx-auto py-8 flex-grow">
+    <h1 class="text-4xl font-bold mb-8 text-center">Customers</h1>
+    <div class="flex justify-between ">
+      <h1 class="text-2xl font-bold mb-8 text-center">Current Customers</h1>
+      <div>
+        <a href="/customers/add" class="bg-blue-500 text-white px-4 py-2 rounded-md mr-2">Add Customer</a>
       </div>
     </div>
-    
-    <!-- Footer -->
-    <%- include('footer') %>
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-gray-800 border border-gray-700">
+        <thead>
+          <tr>
+            <th class="py-2 px-4 border-b border-gray-700">CustomerID</th>
+            <th class="py-2 px-4 border-b border-gray-700">Name</th>
+            <th class="py-2 px-4 border-b border-gray-700">Email</th>
+            <th class="py-2 px-4 border-b border-gray-700">Phone Number</th>
+            <th class="py-2 px-4 border-b border-gray-700">Address</th>
+            <th class="py-2 px-4 border-b border-gray-700">Membership Date</th>
+            <th class="py-2 px-4 border-b border-gray-700">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% customers.forEach(function(customer) { %>
+          <tr>
+            <td class="py-2 px-4 border-b border-gray-700 text-center">
+              <%= customer.CustomerID %>
+            </td>
+            <td class="py-2 px-4 border-b border-gray-700 text-center">
+              <%= customer.Name %>
+            </td>
+            <td class="py-2 px-4 border-b border-gray-700 text-center">
+              <%= customer.Email %>
+            </td>
+            <td class="py-2 px-4 border-b border-gray-700 text-center">
+              <%= customer.PhoneNumber %>
+            </td>
+            <td class="py-2 px-4 border-b border-gray-700 text-center">
+              <%= customer.Address %>
+            </td>
+            <td class="py-2 px-4 border-b border-gray-700 text-center">
+              <%= moment(customer.MembershipDate).format('ddd MMM DD YYYY') %>
+            </td>
+            <td class="py-2 px-4 border-b border-gray-700 text-center">
+              <a href="/customers/edit/<%= customer.CustomerID %>" class="bg-yellow-500 text-white px-4 py-1 rounded-md mr-2">Edit</a>
+              <a href="/customers/delete/<%= customer.CustomerID %>" class="bg-red-500 text-white px-4 py-1 rounded-md">Delete</a>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <%- include('footer') %>
 
-  </body>
+</body>
 </html>

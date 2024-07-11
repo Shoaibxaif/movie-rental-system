@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Customer</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-900 text-white flex flex-col min-h-screen">
+  
+  <%- include('navbar') %>
+
+  <div class="container mx-auto py-8 flex-grow">
+    <h1 class="text-4xl font-bold mb-8 text-center">Edit Customer</h1>
+    <form action="/customers/edit/<%= customer.CustomerID %>" method="POST" class="max-w-md mx-auto bg-gray-800 p-6 rounded-md">
+      <div class="mb-4">
+        <label for="Name" class="block text-white">Name</label>
+        <input type="text" id="Name" name="Name" value="<%= customer.Name %>" class="w-full px-3 py-2 bg-gray-700 rounded-md" required />
+      </div>
+      <div class="mb-4">
+        <label for="Email" class="block text-white">Email</label>
+        <input type="email" id="Email" name="Email" value="<%= customer.Email %>" class="w-full px-3 py-2 bg-gray-700 rounded-md" required />
+      </div>
+      <div class="mb-4">
+        <label for="PhoneNumber" class="block text-white">Phone Number</label>
+        <input type="tel" id="PhoneNumber" name="PhoneNumber" value="<%= customer.PhoneNumber %>" class="w-full px-3 py-2 bg-gray-700 rounded-md" required />
+      </div>
+      <div class="mb-4">
+        <label for="Address" class="block text-white">Address</label>
+        <textarea id="Address" name="Address" rows="3" class="w-full px-3 py-2 bg-gray-700 rounded-md" required><%= customer.Address %></textarea>
+      </div>
+      <div class="mb-4">
+        <label for="MembershipDate" class="block text-white">Membership Date</label>
+        <input type="date" id="MembershipDate" name="MembershipDate" value="<%= moment(customer.MembershipDate).format('YYYY-MM-DD') %>" class="w-full px-3 py-2 bg-gray-700 rounded-md" required />
+      </div>
+      <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-md">Update Customer</button>
+    </form>
+  </div>
+  
+  <!-- Footer -->
+  <%- include('footer') %>
+
+</body>
+</html>
