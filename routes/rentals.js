@@ -108,14 +108,36 @@ router.post("/edit/:id", (req, res) => {
 
 
 // POST route to delete a specific rental
-router.get("/delete/:id", (req, res) => {
+router.post("/delete/:id", (req, res) => {
     const { id } = req.params;
-    db.query("DELETE FROM Rentals WHERE RentalID = ?", [id], (err, results) => {
+
+    // First, check the payment status
+    db.query("SELECT FullPayment FROM Rentals WHERE RentalID = ?", [id], (err, results) => {
         if (err) {
             console.error(err);
-            return res.status(500).json({ message: "Error deleting rental" });
+            return res.status(500).json({ message: "Error checking payment status" });
         }
-        return res.send('<script>alert("Rental deleted successfully"); window.location="/rentals";</script>');
+
+        // If no rental is found with the given ID
+        if (results.length === 0) {
+            return res.status(404).json({ message: "Rental not found" });
+        }
+
+        const isPaid = results[0].FullPayment;
+
+        // Check if the rental has been paid in full
+        if (!isPaid) {
+            return res.send('<script>alert("Payment is due. Cannot delete rental."); window.location="/rentals";</script>');
+        }
+
+        // If payment is complete, proceed to delete the rental
+        db.query("DELETE FROM Rentals WHERE RentalID = ?", [id], (err, results) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).json({ message: "Error deleting rental" });
+            }
+            return res.send('<script>alert("Rental deleted successfully"); window.location="/rentals";</script>');
+        });
     });
 });
 
